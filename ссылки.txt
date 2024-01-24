@@ -1,0 +1,7 @@
+http://rextester.com/l/pascal_online_compiler
+
+https://forkettle.ru/vidioteka/programmirovanie-i-set/algoritmy-i-struktury-dannykh/108-sortirovka-i-poisk-dlya-chajnikov/1009-sortirovka-piramidalnaya-kuchej-heap-sort
+
+https://prog-cpp.ru/sort-pyramid/
+
+

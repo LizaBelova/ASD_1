@@ -1,69 +1,49 @@
-
-const
-  Mmax = 100;
-  Nmax = 10000;
-  Esc = #27;
- 
-
+//Медиана
 var
-  I, J, K, L, M, N: integer;
-  Ch: char;
-  P: array [0..Mmax - 1] of char;
-  S: array [0..Nmax - 1] of char;
-  D: array [0..Mmax - 1] of integer;
-Function ReadKey : Char;
+  arr: array[1..100] of integer;
+  i, j, k, n, swap, t, max: integer;
+
 begin
-end;
-begin
-  write('Введите строку');
-  N := 0; 
-  Ch := ReadKey;
-  while (Ch <> #13) and (N < Nmax - 1) do
+  randomize;
+  write('Размерность массива: ');
+  read(n);
+  for i := 1 to n do arr[i] := random(5) + 1;
+  write('Исходный массив:        ');
+  for i := 1 to n do write(arr[i]:3);
+  for i := 1 to n - 1 do
+    for j := 1 to n - 1 do
+      if(arr[j] > arr[j + 1]) then
+      begin
+        swap := arr[j];
+        arr[j] := arr[j + 1];
+        arr[j + 1] := swap;
+      end;
+  
+  writeln;
+  write('Отсортированный массив: ');
+  for i := 1 to n do write(arr[i]:3);
+  writeln;
+  if(odd(n)) then write('Медиана: ', arr[(n div 2) + 1])
+  else write('Медиана: ', (arr[n div 2] + arr[(n div 2) + 1]) / 2);
+  t := 1;
+  for i := 2 to n do
   begin
-    write(Ch);    
-    S[N] := Ch;    
-    N := N + 1;     
-    Ch := ReadKey;    
+    if(arr[1] = arr[i]) then t := t + 1;
+  end;
+  max := t;
+  t := 1;
+  k := arr[1];
+  for i := 2 to n do
+  begin
+    if(t > max) then
+    begin
+      max := t;
+      k := arr[i];
+    end;
+    t := 1;
+    for j := i + 1 to n do
+      if(arr[i] = arr[j]) then t := t + 1;
   end;
   writeln;
-  write('Введите подстроку');
-  M := 0;
-  Ch := ReadKey;  
-  while (Ch <> #13) and (M < Mmax - 1) do
-  begin 
-    write(Ch);     
-    P[M] := Ch;  
-    m := m + 1;
-    Ch := ReadKey;
-  end;  
-  writeln;  
-  write('Поиск подстроки : ');  
-  if Ch = Esc then exit;  
-  J := 0; K := -1; D[0] := -1;  
-  while J < M - 1 do  
-  begin    
-    while (K >= 0) and (P[J] <> P[K]) do      
-      K := D[K];    
-    J := J + 1;    
-    K := K + 1;    
-    if P[J] = P[K] then D[J] := D[K]    
-    else D[J] := K;    
-  end;  
-  J := 0;  
-  I := 0;  
-  K := 0;  
-  while (J < M) and (I < N) do  
-  begin    
-    while K <= I do     
-    begin      
-      write(S[K]);      
-      K := K + 1;      
-    end;    
-    while (J >= 0) and (S[I] <> P[J]) do       
-      J := D[J];    
-    I := I + 1; J := J + 1;    
-  end;  
-  writeln;  
-  if J = M then writeln('Образец в строке присутствует')
-  else writeln('Образец в строке отсутствует');
+  write('Часто встречающееся число: ', k);
 end.
